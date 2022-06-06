@@ -1,0 +1,19 @@
+﻿<Window x:Class="Zaliczenie1.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zaliczenie1"
+        mc:Ignorable="d"
+        Title="Login" Height="450" Width="800">
+    <Grid Margin="50">
+        <StackPanel Margin="80 20">
+            <Label Content="Login" />
+            <TextBox Name="UserLogin" />
+            <Separator Margin="30" />
+            <Label Content="Password" />
+            <TextBox Name="UserPassword" />
+            <Button Content="Login" Click="handleLoginUser" Name="submitBtn" Margin="40 20" />
+        </StackPanel>
+    </Grid>
+</Window>

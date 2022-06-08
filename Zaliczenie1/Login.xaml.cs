@@ -64,7 +64,7 @@ namespace Zaliczenie1
                 }
                 else
                 {
-                    MessageBox.Show("Nie ma takiego użytkownika!");
+                    MessageBox.Show("Niepoprawne hasło lub login!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
             }
@@ -93,7 +93,7 @@ namespace Zaliczenie1
                     
                     if (exists)
                     {
-                        MessageBox.Show(string.Format("Użytkownik {0} już istnieje",UserLogin.Text));
+                        MessageBox.Show(string.Format("Użytkownik {0} już istnieje",UserLogin.Text),"Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else
                     {

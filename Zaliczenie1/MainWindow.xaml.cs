@@ -126,14 +126,17 @@ namespace Zaliczenie1
             try {
                 if (IsValid())
                 {
+                     int combo = FirstComboBox.SelectedIndex+1;
+                     int combo1 = SecondComboBox.SelectedIndex+1;
                     SqlCommand cmd = new SqlCommand("INSERT INTO DataUser VALUES (@Name, @Lastname, @Age, @Type_of_emloyment, @City )", con);
+                    
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("@Name", Name.Text);
                     cmd.Parameters.AddWithValue("@Lastname", LastName.Text);
-                    cmd.Parameters.AddWithValue("@Age", Age.Text);
-                    cmd.Parameters.AddWithValue("@Type_of_emloyment", FirstComboBox.SelectedIndex);
-                    cmd.Parameters.AddWithValue("@City", SecondComboBox.SelectedIndex);
-                    
+                    cmd.Parameters.AddWithValue("@Age", Age.Text);                   
+                    cmd.Parameters.AddWithValue("@City", combo);
+                    cmd.Parameters.AddWithValue("@Type_of_emloyment", combo1);
+
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -173,8 +176,10 @@ namespace Zaliczenie1
 
         private void UpdateDataBtn_Click(object sender, RoutedEventArgs e)
         {
+            int combo = FirstComboBox.SelectedIndex + 1;
+            int combo1 = SecondComboBox.SelectedIndex + 1;
             con.Open();
-            SqlCommand cmd = new SqlCommand("Update DataUser set Name = '" + Name.Text + "',Lastname = '" + LastName.Text + "',Age = '" + Age.Text + "',Type_of_employment = '" + FirstComboBox.SelectedIndex + "',City = '" + SecondComboBox.SelectedIndex + "' WHERE ID = '"+Search.Text+"'",con);
+            SqlCommand cmd = new SqlCommand("Update DataUser set Name = '" + Name.Text + "',Lastname = '" + LastName.Text + "',Age = '" + Age.Text + "',Type_of_employment = '" + combo1 + "',City = '" + combo + "' WHERE UserID = '" + Search.Text+"'",con);
             try
             {
                 cmd.ExecuteNonQuery();

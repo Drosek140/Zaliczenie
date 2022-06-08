@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Data.SqlClient;
+
 using System.Data;
 
 namespace Zaliczenie1
@@ -32,7 +32,7 @@ namespace Zaliczenie1
 
         private void LoadGrid()
         {
-            SqlCommand cmd = new SqlCommand("select * from Data_User", con);
+            SqlCommand cmd = new SqlCommand("SELECT UserID,Name,LastName,Age,City.City,Type_of_Employment.Type_of_employment FROM((DataUser INNER JOIN City ON DataUser.City = City.ID) JOIN Type_of_Employment ON DataUser.Type_of_employment = Type_of_Employment.ID); ", con);
             DataTable dt = new DataTable();
             con.Open();
             SqlDataReader sdr = cmd.ExecuteReader();
@@ -54,22 +54,22 @@ namespace Zaliczenie1
         {
             if(Name.Text == string.Empty)
             {
-                MessageBox.Show("Imię jest wymagane", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Imię jest wymagane!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             if (LastName.Text == string.Empty)
             {
-                MessageBox.Show("Nazwisko jest wymagane", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Nazwisko jest wymagane!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             if (Age.Text == string.Empty)
             {
-                MessageBox.Show("Wiek jest wymagany", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Wiek jest wymagany!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             if (Pesel.Text == string.Empty)
             {
-                MessageBox.Show("Pesel jest wymagany", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Pesel jest wymagany!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             return true;
@@ -85,17 +85,17 @@ namespace Zaliczenie1
             try {
                 if (IsValid())
                 {
-                    SqlCommand cmd = new SqlCommand("INSERT INTO Data_User VALUES (@Name, @Lastname, @Age, @Pesel )",con);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO DataUser VALUES (@Name, @Lastname, @Age, @City )",con);
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("@Name", Name.Text);
                     cmd.Parameters.AddWithValue("@Lastname", LastName.Text);
                     cmd.Parameters.AddWithValue("@Age", Age.Text);
-                    cmd.Parameters.AddWithValue("@Pesel", Pesel.Text);
+                    cmd.Parameters.AddWithValue("@City", City.Text);
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
                     LoadGrid();
-                    MessageBox.Show("succesfully added", "Saved", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Poprawnie dodano!", "Zapisane", MessageBoxButton.OK, MessageBoxImage.Information);
                     ClearData();
                 }
             }
@@ -108,11 +108,11 @@ namespace Zaliczenie1
         private void DeleteDataBtn_Click(object sender, RoutedEventArgs e)
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("delete from Data_User where ID = " + Search.Text + "", con);
+            SqlCommand cmd = new SqlCommand("delete from DataUser where UserID = " + Search.Text + "", con);
             try
             {
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Poprawnie usunięto rekord", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Poprawnie usunięto rekord", "Usunięte", MessageBoxButton.OK, MessageBoxImage.Information);
                 con.Close();
                 ClearData();
                 LoadGrid();
@@ -120,7 +120,7 @@ namespace Zaliczenie1
             }
             catch(SqlException ex)
             {
-                MessageBox.Show("nie udało się usunąć"+" "+ex.Message);
+                MessageBox.Show("Nie udało się usunąć"+" "+ex.Message);
             }
             finally
             {
@@ -131,11 +131,11 @@ namespace Zaliczenie1
         private void UpdateDataBtn_Click(object sender, RoutedEventArgs e)
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("Update Data_User set Name = '" + Name.Text + "',Lastname = '" + LastName.Text + "',Age = '" + Age.Text + "',Pesel = '" + Pesel.Text + "' WHERE ID = '"+Search.Text+"'",con);
+            SqlCommand cmd = new SqlCommand("Update DataUser set Name = '" + Name.Text + "',Lastname = '" + LastName.Text + "',Age = '" + Age.Text + "',Pesel = '" + Pesel.Text + "' WHERE ID = '"+Search.Text+"'",con);
             try
             {
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Poprawnie zmieniono rekord", "Updated", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Poprawnie zmieniono rekord", "Zmienione", MessageBoxButton.OK, MessageBoxImage.Information);
                 con.Close();
                 ClearData();
                 LoadGrid();
@@ -143,7 +143,7 @@ namespace Zaliczenie1
             }
             catch (SqlException ex)
             {
-                MessageBox.Show("nie udało się usunąć" + ex.Message);
+                MessageBox.Show("Nie udało się usunąć" + ex.Message);
             }
             finally
             {

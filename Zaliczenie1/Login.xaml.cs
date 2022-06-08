@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System;
-using System.Collections.Generic;
+
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,12 +30,12 @@ namespace Zaliczenie1
         {
             if (UserLogin.Text == string.Empty)
             {
-                MessageBox.Show("Wprowadz Login", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Wprowadz Login!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             if (UserPassword.Password == string.Empty)
             {
-                MessageBox.Show("Wprowadz Hasło", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Wprowadz Hasło!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
            
@@ -93,7 +93,7 @@ namespace Zaliczenie1
                     
                     if (exists)
                     {
-                        MessageBox.Show(string.Format("Username {0} already exist",UserLogin.Text));
+                        MessageBox.Show(string.Format("Użytkownik {0} już istnieje",UserLogin.Text));
                     }
                     else
                     {

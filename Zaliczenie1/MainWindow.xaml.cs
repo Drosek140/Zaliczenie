@@ -32,7 +32,7 @@ namespace Zaliczenie1
 
         private void LoadGrid()
         {
-            SqlCommand cmd = new SqlCommand("select Name,Lastname,Age,Pesel from Data_User", con);
+            SqlCommand cmd = new SqlCommand("select * from Data_User", con);
             DataTable dt = new DataTable();
             con.Open();
             SqlDataReader sdr = cmd.ExecuteReader();
@@ -47,6 +47,7 @@ namespace Zaliczenie1
             Age.Clear();
             LastName.Clear();
             Pesel.Clear();
+            Search.Clear();
 
         }
         public bool IsValid()
@@ -107,15 +108,48 @@ namespace Zaliczenie1
         private void DeleteDataBtn_Click(object sender, RoutedEventArgs e)
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("delete from Data_User where ID =" + Search.Text + "", con);
+            SqlCommand cmd = new SqlCommand("delete from Data_User where ID = " + Search.Text + "", con);
             try
             {
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Poprawnie usunięto rekord")
+                MessageBox.Show("Poprawnie usunięto rekord", "Deleted", MessageBoxButton.OK, MessageBoxImage.Information);
+                con.Close();
+                ClearData();
+                LoadGrid();
+                con.Close();
             }
             catch(SqlException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("nie udało się usunąć"+" "+ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        private void UpdateDataBtn_Click(object sender, RoutedEventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Update Data_User set Name = '" + Name.Text + "',Lastname = '" + LastName.Text + "',Age = '" + Age.Text + "',Pesel = '" + Pesel.Text + "' WHERE ID = '"+Search.Text+"'",con);
+            try
+            {
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Poprawnie zmieniono rekord", "Updated", MessageBoxButton.OK, MessageBoxImage.Information);
+                con.Close();
+                ClearData();
+                LoadGrid();
+                con.Close();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("nie udało się usunąć" + ex.Message);
+            }
+            finally
+            {
+                con.Close();
+                ClearData();
+                LoadGrid();
             }
         }
     }

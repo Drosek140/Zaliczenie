@@ -7,14 +7,27 @@
         mc:Ignorable="d"
         Title="Login" Height="450" Width="800">
     <Grid Margin="50">
-        <StackPanel Background="#FFCDC9C9" Margin="-49,-48,-49,-49">
-            <Label Content="Login:" HorizontalAlignment="Center" Margin="0 80 0 0" FontFamily="Verdana"/>
-            <TextBox Name="UserLogin" Width="150" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Background="#FFCDC9C9" Orientation="Horizontal" Margin="-49,-49,-49,-49" Grid.RowSpan="2">
+        
+            <StackPanel Background="#FF393434" Margin="250 0 0 0" Width="300" Height="250" Orientation="Vertical">
+                <Label Content="Login:" HorizontalAlignment="Center" Margin="0 80 0 0" FontFamily="Verdana" Foreground="White"/>
+                <TextBox Name="UserLogin" Width="150" />
 
-            <Label Content="Hasło:" HorizontalAlignment="Center" FontFamily="Verdana" />
-            <PasswordBox Width="150" Name="UserPassword"  MaxLength="64" PasswordChar="#"/>
-            <Button Width="100" Content="Zaloguj" Margin="150 150" Click="handleLoginUser"
-                    VerticalAlignment="Bottom" HorizontalAlignment="Right" Name="submitBtn" Background="#FF82CA79"  />
+                <Label Content="Hasło:" HorizontalAlignment="Center" FontFamily="Verdana" Foreground="White" />
+                <PasswordBox Width="150" Name="UserPassword"  MaxLength="64" PasswordChar="#"/>
+                <Button Margin="30" Width="100" Content="Zarejestruj się" Click="RegisterBtn_Click"
+                           Background="#FF82CA79"  />
+            </StackPanel>
+
+            <StackPanel Background="#C0C0" VerticalAlignment="Bottom" Margin="60 30"  >
+                <Button Width="100" Content="Zaloguj" Click="handleLoginUser"
+                           Name="submitBtn" Background="#FF82CA79"  />
+            </StackPanel>
+
         </StackPanel>
     </Grid>
 </Window>

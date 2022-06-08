@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Height="440" VerticalAlignment="Top">
-        <StackPanel Orientation="Horizontal" Background="#FF3385C5" >
+        <StackPanel Orientation="Horizontal" Background="#FF527E9F" >
             <TextBlock Margin="10 20">
                Zarządzanie
                <LineBreak />
@@ -22,10 +22,10 @@
                 <Label Content="Pesel:" HorizontalAlignment="Left"  />
             </StackPanel>
             <StackPanel  Margin="0 80" Orientation="Vertical"  HorizontalAlignment="Center">
-                <TextBox Name="Name" Margin="4" Width="150" HorizontalAlignment="Left"  />
-                <TextBox Name="LastName" Margin="4" Width="150" HorizontalAlignment="Left"  />
-                <TextBox Name="Age" Margin="4" Width="150" HorizontalAlignment="Right"  />
-                <TextBox Name="Pesel" Margin="4" Width="150" HorizontalAlignment="Left"  />
+                <TextBox Name="Name" Margin="4" Width="150" HorizontalAlignment="Left" Background="#FFA8A8A8"  />
+                <TextBox Name="LastName" Margin="4" Width="150" HorizontalAlignment="Left" Background="#FFA8A8A8"  />
+                <TextBox Name="Age" Margin="4" Width="150" HorizontalAlignment="Right" Background="#FFA8A8A8"  />
+                <TextBox Name="Pesel" Margin="4" Width="150" HorizontalAlignment="Left" Background="#FFA8A8A8"  />
             </StackPanel>
 
         </StackPanel>
@@ -33,15 +33,15 @@
             <DataGrid Name="datagrid" Width="400" Height="200"></DataGrid>
             <StackPanel Orientation="Horizontal" >
                 <Label Margin="0 30" Content="ID:"/>
-                <TextBox Name="Search" Margin="0 30" Width="150"/>
+                <TextBox Name="Search" Margin="0 30" Width="150" Background="#FFA8A8A8"/>
             </StackPanel>
         </StackPanel>
 
         <StackPanel Margin="50" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-            <Button Content="Insert Record"  Click="InsertDataBtn_Click" Margin="40 20" />
-            <Button Content="Update Record"  Name="submitBtn1" Margin="40 20" />
-            <Button Content="Delete Record"  Click="DeleteDataBtn_Click" Margin="40 20" />
-            <Button Content="Clear Data"  Click="ClearDataBtn_Click" Margin="40 20" />
+            <Button Content="Insert Record"  Click="InsertDataBtn_Click" Margin="40 20" Background="#FF8F93E6" />
+            <Button Content="Update Record"  Click="UpdateDataBtn_Click" Margin="40 20" Background="#FF8F93E6" />
+            <Button Content="Delete Record"  Click="DeleteDataBtn_Click" Margin="40 20" Background="#FF8F93E6" />
+            <Button Content="Clear Data"  Click="ClearDataBtn_Click" Margin="40 20" Background="#FF8F93E6" />
         </StackPanel>
 
     </Grid>

@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using Zaliczenie1;
+using System.Data;
 
 namespace Zaliczenie1
 {
@@ -24,20 +25,36 @@ namespace Zaliczenie1
         {
             InitializeComponent();
         }
+        SqlConnection con = new SqlConnection(@"Data Source=LAPTOP-A4M3759K\SQLEXPRESS;Initial Catalog=Sample_Database;Integrated Security=True;");
+        public bool IsValid()
+        {
+            if (UserLogin.Text == string.Empty)
+            {
+                MessageBox.Show("Wprowadz Login", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            if (UserPassword.Password == string.Empty)
+            {
+                MessageBox.Show("Wprowadz Hasło", "Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+           
+            return true;
+        }
         public void handleLoginUser(object sender, RoutedEventArgs e)
         {
-            SqlConnection sqlCon = new SqlConnection(@"Data Source=LAPTOP-A4M3759K\SQLEXPRESS;Initial Catalog=Sample_Database;Integrated Security=True");
+            
             try
             {
-                if (sqlCon.State == System.Data.ConnectionState.Closed)
+                if (con.State == System.Data.ConnectionState.Closed)
                 {
-                    sqlCon.Open();
+                    con.Open();
                 }
-                String query = "SELECT COUNT(1) FROM User_Login WHERE Login = @UserName AND Password=@UserPassword";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                String query = "SELECT COUNT(1) FROM Login_User WHERE Login = @Login AND Password=@Password";
+                SqlCommand sqlCmd = new SqlCommand(query, con);
                 sqlCmd.CommandType = System.Data.CommandType.Text;
-                sqlCmd.Parameters.AddWithValue("@Username", UserLogin.Text);
-                sqlCmd.Parameters.AddWithValue("@UserPassword", UserPassword.Password);
+                sqlCmd.Parameters.AddWithValue("@Login", UserLogin.Text);
+                sqlCmd.Parameters.AddWithValue("@Password", UserPassword.Password);
                 int count = Convert.ToInt32(sqlCmd.ExecuteScalar());
                 if (count == 1)
                 {
@@ -57,9 +74,43 @@ namespace Zaliczenie1
             }
             finally
             {
-                sqlCon.Close();
+                con.Close();
             }
         }
 
+        private void RegisterBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (IsValid())
+                {
+                    bool exists = false;
+                    SqlCommand cmd = new SqlCommand("Select count(*) from Login_User where Login=@Login", con);
+                    con.Open();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@Login", UserLogin.Text);
+                    exists = (int)cmd.ExecuteScalar() > 0;
+                    
+                    if (exists)
+                    {
+                        MessageBox.Show(string.Format("Username {0} already exist",UserLogin.Text));
+                    }
+                    else
+                    {
+                        SqlCommand comand = new SqlCommand("INSERT INTO Login_User VALUES (@Login, @Password)", con);
+                        comand.CommandType = CommandType.Text;
+                        comand.Parameters.AddWithValue("@Login", UserLogin.Text);
+                        comand.Parameters.AddWithValue("@Password", UserPassword.Password);                      
+                        comand.ExecuteNonQuery();
+                        con.Close();
+                        MessageBox.Show("Poprawnie zarejestrowano! Kliknij przycisk Zaloguj!", "Rejestracja", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

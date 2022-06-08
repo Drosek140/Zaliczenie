@@ -27,6 +27,8 @@ namespace Zaliczenie1
         {
             InitializeComponent();
             LoadGrid();
+            FillCombo();
+            FillCombo1();
         }
         SqlConnection con = new SqlConnection(@"Data Source=LAPTOP-A4M3759K\SQLEXPRESS;Initial Catalog=Sample_Database;Integrated Security=True;");
 
@@ -41,12 +43,51 @@ namespace Zaliczenie1
             datagrid.ItemsSource = dt.DefaultView;
 
         }
+        public void FillCombo()
+        {
+            try
+            {               
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("Select * From City ", con);
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read()) {
+                        string name = dr.GetString(1);
+                    FirstComboBox.Items.Add(name);
+                    }
+                    con.Close();
+        }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+        public void FillCombo1()
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("Select * From Type_of_Employment ", con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    string name = dr.GetString(1);
+                    SecondComboBox.Items.Add(name);
+                }
+                con.Close();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
         public void ClearData()
         {
             Name.Clear();
             Age.Clear();
             LastName.Clear();
-            Pesel.Clear();
+            
             Search.Clear();
 
         }
@@ -67,7 +108,7 @@ namespace Zaliczenie1
                 MessageBox.Show("Wiek jest wymagany!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
-            if (Pesel.Text == string.Empty)
+            if (FirstComboBox.Text == string.Empty)
             {
                 MessageBox.Show("Pesel jest wymagany!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
@@ -85,12 +126,14 @@ namespace Zaliczenie1
             try {
                 if (IsValid())
                 {
-                    SqlCommand cmd = new SqlCommand("INSERT INTO DataUser VALUES (@Name, @Lastname, @Age, @City )",con);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO DataUser VALUES (@Name, @Lastname, @Age, @Type_of_emloyment, @City )", con);
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("@Name", Name.Text);
                     cmd.Parameters.AddWithValue("@Lastname", LastName.Text);
                     cmd.Parameters.AddWithValue("@Age", Age.Text);
-                    cmd.Parameters.AddWithValue("@City", City.Text);
+                    cmd.Parameters.AddWithValue("@Type_of_emloyment", FirstComboBox.SelectedIndex);
+                    cmd.Parameters.AddWithValue("@City", SecondComboBox.SelectedIndex);
+                    
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -131,7 +174,7 @@ namespace Zaliczenie1
         private void UpdateDataBtn_Click(object sender, RoutedEventArgs e)
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("Update DataUser set Name = '" + Name.Text + "',Lastname = '" + LastName.Text + "',Age = '" + Age.Text + "',Pesel = '" + Pesel.Text + "' WHERE ID = '"+Search.Text+"'",con);
+            SqlCommand cmd = new SqlCommand("Update DataUser set Name = '" + Name.Text + "',Lastname = '" + LastName.Text + "',Age = '" + Age.Text + "',Type_of_employment = '" + FirstComboBox.SelectedIndex + "',City = '" + SecondComboBox.SelectedIndex + "' WHERE ID = '"+Search.Text+"'",con);
             try
             {
                 cmd.ExecuteNonQuery();
@@ -143,7 +186,7 @@ namespace Zaliczenie1
             }
             catch (SqlException ex)
             {
-                MessageBox.Show("Nie udało się usunąć" + ex.Message);
+                MessageBox.Show("Nie udało się zmienić" + ex.Message);
             }
             finally
             {

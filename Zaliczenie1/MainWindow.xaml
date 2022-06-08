@@ -19,17 +19,21 @@
                 <Label Content="Name:" HorizontalAlignment="Left"  />
                 <Label Content="LastName:" HorizontalAlignment="Left"  />
                 <Label Content="Age:" HorizontalAlignment="Left"  />
-                <Label Content="Pesel:" HorizontalAlignment="Left"  />
+                <Label Content="City" HorizontalAlignment="Left"  />
+                <Label Content="Emloyment type:" HorizontalAlignment="Left"  />
             </StackPanel>
             <StackPanel  Margin="0 80" Orientation="Vertical"  HorizontalAlignment="Center">
                 <TextBox Name="Name" Margin="4" Width="150" HorizontalAlignment="Left" Background="#FFA8A8A8"  />
                 <TextBox Name="LastName" Margin="4" Width="150" HorizontalAlignment="Left" Background="#FFA8A8A8"  />
                 <TextBox Name="Age" Margin="4" Width="150" HorizontalAlignment="Right" Background="#FFA8A8A8"  />
-                <TextBox Name="City" Margin="4" Width="150" HorizontalAlignment="Left" Background="#FFA8A8A8"  />
+                <ComboBox  Name="FirstComboBox" Margin="0 2" Width="150" IsEditable="True">
+                </ComboBox>
+                <ComboBox Name="SecondComboBox" Margin="0 2" Width="150" IsEditable="True">
+                </ComboBox>
             </StackPanel>
 
         </StackPanel>
-        <StackPanel  Margin="50 50" VerticalAlignment="Top" HorizontalAlignment="Right">
+        <StackPanel  Margin="30 50" VerticalAlignment="Top" HorizontalAlignment="Right">
             <DataGrid Name="datagrid" Width="400" Height="200"></DataGrid>
             <StackPanel Orientation="Horizontal" >
                 <Label Margin="0 30" Content="ID:"/>

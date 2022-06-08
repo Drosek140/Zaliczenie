@@ -6,11 +6,43 @@
         xmlns:local="clr-namespace:Zaliczenie1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Margin="50">
-        <StackPanel Margin="80 20">
-            <Label Content="CRUD" />
-           <Separator Margin="10" />
-          
+    <Grid Height="440" VerticalAlignment="Top">
+        <StackPanel Orientation="Horizontal" Background="#FF3385C5" >
+            <TextBlock Margin="10 20">
+               Zarządzanie
+               <LineBreak />
+               Użytkownkami
+            </TextBlock>
+
+
+            <StackPanel Margin="0 80" Orientation="Vertical"  HorizontalAlignment="Left">
+                <Label Content="Name:" HorizontalAlignment="Left"  />
+                <Label Content="LastName:" HorizontalAlignment="Left"  />
+                <Label Content="Age:" HorizontalAlignment="Left"  />
+                <Label Content="Pesel:" HorizontalAlignment="Left"  />
+            </StackPanel>
+            <StackPanel  Margin="0 80" Orientation="Vertical"  HorizontalAlignment="Center">
+                <TextBox Name="Name" Margin="4" Width="150" HorizontalAlignment="Left"  />
+                <TextBox Name="LastName" Margin="4" Width="150" HorizontalAlignment="Left"  />
+                <TextBox Name="Age" Margin="4" Width="150" HorizontalAlignment="Right"  />
+                <TextBox Name="Pesel" Margin="4" Width="150" HorizontalAlignment="Left"  />
+            </StackPanel>
+
         </StackPanel>
+        <StackPanel  Margin="50 50" VerticalAlignment="Top" HorizontalAlignment="Right">
+            <DataGrid Name="datagrid" Width="400" Height="200"></DataGrid>
+            <StackPanel Orientation="Horizontal" >
+                <Label Margin="0 30" Content="ID:"/>
+                <TextBox Name="Search" Margin="0 30" Width="150"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Margin="50" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <Button Content="Insert Record"  Click="InsertDataBtn_Click" Margin="40 20" />
+            <Button Content="Update Record"  Name="submitBtn1" Margin="40 20" />
+            <Button Content="Delete Record"  Click="DeleteDataBtn_Click" Margin="40 20" />
+            <Button Content="Clear Data"  Click="ClearDataBtn_Click" Margin="40 20" />
+        </StackPanel>
+
     </Grid>
 </Window>

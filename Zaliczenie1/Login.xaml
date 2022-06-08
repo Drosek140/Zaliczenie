@@ -7,13 +7,14 @@
         mc:Ignorable="d"
         Title="Login" Height="450" Width="800">
     <Grid Margin="50">
-        <StackPanel Margin="80 20">
-            <Label Content="Login" />
-            <TextBox Name="UserLogin" />
-            <Separator Margin="30" />
-            <Label Content="Password" />
-            <TextBox Name="UserPassword" />
-            <Button Content="Login" Click="handleLoginUser" Name="submitBtn" Margin="40 20" />
+        <StackPanel Background="#FFCDC9C9" Margin="-49,-48,-49,-49">
+            <Label Content="Login:" HorizontalAlignment="Center" Margin="0 80 0 0" FontFamily="Verdana"/>
+            <TextBox Name="UserLogin" Width="150" />
+
+            <Label Content="Hasło:" HorizontalAlignment="Center" FontFamily="Verdana" />
+            <PasswordBox Width="150" Name="UserPassword"  MaxLength="64" PasswordChar="#"/>
+            <Button Width="100" Content="Zaloguj" Margin="150 150" Click="handleLoginUser"
+                    VerticalAlignment="Bottom" HorizontalAlignment="Right" Name="submitBtn" Background="#FF82CA79"  />
         </StackPanel>
     </Grid>
 </Window>
